@@ -22,7 +22,7 @@
                                 <small class="text-white">*{{ $message }}</small>
                                 <br>
                             @enderror
-                            <input name="name"
+                            <input name="name" value="{{old('name')}}"
                                 class="w-full bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" />
 
                         </div>
@@ -38,20 +38,34 @@
                                 <small class="text-white">*{{ $message }}</small>
                                 <br>
                             @enderror
-                            <input name="lastname"
+                            <input name="lastname" value="{{old('lastname')}}"
                                 class="w-full bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" />
                         </div>
 
                     </div>
 
+                    <div>
+                        <label for="username" class="inline-block text-gray-300 text-sm sm:text-base mb-2">Nombre de usuario</label>
+                        @error('username')
+                                <small class="text-white">*{{ $message }}</small>
+                                <br>
+                        @enderror
+                        <div class="flex">
+                            <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l">
+                              @
+                            </span>
+                            <input type="text" name="username" id="website-admin" class="rounded-none rounded-r bg-gray-50 border text-gray-900 focus:ring-blue-500 focus:border-blue-500 block flex-1 min-w-0 w-full text-sm border-gray-300 p-2.5" placeholder="">
+                          </div>
+                    </div>
 
-                    <div class="my-3">
+
+                    <div>
                         <label for="email" class="inline-block text-gray-300 text-sm sm:text-base mb-2">Correo electronico</label>
                         @error('email')
                                 <small class="text-white">*{{ $message }}</small>
                                 <br>
                         @enderror
-                        <input name="email"
+                        <input name="email" value="{{old('email')}}"
                             class="w-full bg-gray-50 text-gray-800 border focus:ring ring-indigo-300 rounded outline-none transition duration-100 px-3 py-2" />
                     </div>
 

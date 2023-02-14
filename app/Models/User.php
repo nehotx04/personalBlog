@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
+
 
 class User extends Authenticatable
 {
@@ -20,6 +22,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'lastname',
+        'username',
         'email',
         'password',
     ];
@@ -46,5 +49,15 @@ class User extends Authenticatable
     public function setPasswordAttribute($password) {
 
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function setUsernameAttribute($username){
+        $username = Str::lower($username);
+        $this->attributes['username'] = '@' . $username;
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'username';
     }
 }

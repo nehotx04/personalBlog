@@ -12,18 +12,12 @@ return new class extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('posts',function(Blueprint $table){
-
+    {   
+        Schema::create('follows',function(Blueprint $table){
             $table->id();
-            $table->string('title',100);
-            $table->string('body',800)->nullable();
-            $table->string('slug');
-            $table->string('image',800)->nullable();
-            $table->foreignId('user_id')->constrained();
-            $table->boolean('is_public')->default(0);
+            $table->foreignId('follower_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('followed_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-            
         });
     }
 
@@ -34,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('follows');
     }
 };

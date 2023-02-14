@@ -18,6 +18,7 @@
     @yield('body')
 
     <script src="https://kit.fontawesome.com/d76d9d2ca0.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
 </body>
 
 </html>

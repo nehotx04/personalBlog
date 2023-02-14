@@ -1,47 +1,30 @@
-<!--<header id="header" class="bg-gray-800 w-full px-6 py-5 z-50 fixed top-0 shadow-md transition-all transform ease-in-out duration-500">
-    <div class="max-w-5xl mx-auto flex items-center flex-wrap justify-between">
-        <div class="sm:mr-8">
-            <a class="flex items-center" href="{{route('posts.index')}}">
-                <span class="text-xl text-teal-400 font-semibold self-center">Personal Blog</span>
-            </a>
-        </div>
-        <nav id="menu" class="order-last md:order-none items-center flex-grow w-full md:w-auto md:flex hidden mt-2 md:mt-0">
-            <a href="#" target="_blank" rel="noopener" class="block mt-4 md:inline-block md:mt-0 font-medium text-slate-400 hover:text-teal-700 text-base mr-4">Hola</a>
-        </nav>
-        {{-- flex justify-between items-center --}}
-        <form id="search" action="" class="order-last sm:order-none flex-row flex-grow items-center justify-end hidden sm:block mt-6 sm:mt-0">
-            <input type="text" id="header-searchbox" name="search" placeholder="Search here ..." class="w-full lg:max-w-sm max-w-xs bg-slate-200 border border-transparent float-left focus:bg-white focus:border-slate-300 focus:outline-none h-10 p-4 placeholder-slate-500 rounded text-slate-700 text-sm">
-            <button class="inline-block bg-teal-600 hover:bg-teal-700 active:bg-teal-800 focus-visible:ring ring-teal-300 text-white text-sm md:text-base font-semibold text-center rounded outline-none transition duration-100 ml-2 px-4 h-10"><i class="fa-solid fa-magnifying-glass text-white"></i>{{--🔍--}}</button>
-        </form>
-    </div>
-</header>-->
-
 <style>
-.noscroll::-webkit-scrollbar{
-  height:5px;
-  
+    .noscroll::-webkit-scrollbar {
+        height: 5px;
 
-}
 
-.noscroll::-webkit-scrollbar-track {
-  background: #20202000;
-  border-radius:15px;
-}
+    }
 
-/* Handle */
-.noscroll::-webkit-scrollbar-thumb {
-  background: #28324e;
-  border-radius:15px;
+    .noscroll::-webkit-scrollbar-track {
+        background: #20202000;
+        border-radius: 15px;
+    }
 
-}
+    /* Handle */
+    .noscroll::-webkit-scrollbar-thumb {
+        background: #28324e;
+        border-radius: 15px;
 
-/* Handle on hover */
-.noscroll::-webkit-scrollbar-thumb:hover {
-  background: #162544;
-}
+    }
 
+    /* Handle on hover */
+    .noscroll::-webkit-scrollbar-thumb:hover {
+        background: #162544;
+    }
 </style>
 
+
+{{-- 
 <header class="mb-4 fixed top-0 left-0 right-0 w-full z-10">
     <nav class=" bg-white  border-gray-200 px-4 lg:px-6 py-5 dark:bg-gray-800">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
@@ -80,5 +63,74 @@
             </div>
         </div>
     </nav>
+</header> --}}
+
+<header class="mb-4 fixed top-0 left-0 right-0 w-full z-10">
+    <nav class=" bg-white  border-gray-200 px-4 lg:px-6 py-5 dark:bg-gray-800"">
+        <div class="container flex flex-wrap items-center justify-between mx-auto">
+            <a href="{{ route('posts.index') }}" class="flex items-center">
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"><i
+                        class="fa-solid fa-user-lock text-2xl mr-5"></i> PrivBlog</span>
+            </a>
+            <button data-collapse-toggle="navbar-default" type="button"
+                class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-default" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </button>
+            <div class="hidden w-full md:flex md:w-auto" id="navbar-default">
+                
+                <ul
+                    class="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a href="{{ route('posts.index') }}"
+                            class="{{ request()->routeIs('posts.index') ? 'dark:text-white' : 'dark:text-gray-400' }} block py-2 mt-1 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0  md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                            aria-current="page">Inicio </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('search') }}"
+                            class="{{ request()->routeIs('search') ? 'dark:text-white' : 'dark:text-gray-400' }} block py-2 mt-1 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0  md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                            aria-current="page">PrivBlogers</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('contact.index') }}"
+                            class="{{ request()->routeIs('contact.index') ? 'dark:text-white' : 'dark:text-gray-400' }} block py-2 mt-1 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0  md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                            aria-current="page">Contactanos </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('profile',Auth::user()->username) }}"
+                            class="{{ request()->routeIs('profile') ? 'dark:text-white' : 'dark:text-gray-400' }} block py-2 mt-1 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0  md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                            aria-current="page">Mi perfil </a>
+                    </li>
+                    {{-- <li>
+                        <a href="#"
+                            class="block py-2 mt-1 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
+                    </li> --}}
+                    <li>
+                        <form action="{{ route('auth.logout') }}">
+                            <button title="Cerrar sessión" type="submit" class="text-start w-full">
+                                <span
+                                    class="hidden md:block md:text-white hover:text-gray-200 bg-red-600 hover:bg-red-700 transition ease-in-out delay-50 hover:text-gray-100 rounded-full px-2 py-1">
+                                    <i class="fa-solid fa-power-off"></i>
+                                </span>
+                                <span
+                                    class="block py-2 mt-1 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white dark:text-gray-100 md:hidden w-full">
+                                    Cerrar sesion
+                                </span>
+                            </button>
+                        </form>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
 </header>
-<div class="mb-24 relative"></div>
+
+
+<div class="mb-32 relative"></div>

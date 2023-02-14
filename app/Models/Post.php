@@ -17,7 +17,7 @@ class Post extends Model
     {
         $this->attributes['title'] = $value;
         $slug = Str::slug($value, '-');
-        $this->attributes['slug'] =  $slug . Str::random(Str::length($value));
+        $this->attributes['slug'] =  $slug .'-'. Str::random(Str::length($value));
     }
     
     public function getRouteKeyName()

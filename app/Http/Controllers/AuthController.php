@@ -23,7 +23,7 @@ class AuthController extends Controller
             // if(auth()->user()->role == 'admin') {
             //     return redirect()->route('admin.index');
             // } else {
-                return redirect((route('posts.index')));
+                return redirect(route('posts.index'));
             // }
         }
     }
@@ -32,6 +32,6 @@ class AuthController extends Controller
 
         auth()->logout();
 
-        return redirect((route('auth.login')));
+        return redirect(route('auth.login'));
     }
 }

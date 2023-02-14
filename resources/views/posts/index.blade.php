@@ -111,6 +111,6 @@
       </div>
     </div>
 
-    @include('partials/footer')
+    {{-- @include('partials/footer') --}}
 
 @endsection
