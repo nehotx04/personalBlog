@@ -43,5 +43,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('search', [PostController::class, 'get_search'])->name('search');
     Route::get('profile/{user}', [UserController::class, 'profile'])->name('profile');
     Route::put('profile/{user}', [UserController::class, 'edit_profile'])->name('profile.edit');
-    Route::post('follow', [FollowController::class, 'follow'])->name('follow');
+    Route::post('follow', [UserController::class, 'follow'])->name('follow');
 });

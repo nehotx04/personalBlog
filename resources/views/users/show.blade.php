@@ -82,9 +82,9 @@
                                     <small class="text-white">*{{ $message }}</small>
                                     <br>
                                 @enderror
-                                <textarea name="description" rows="5"
+                                <textarea name="description" rows="3"
                                     class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-teal-500 focus:border-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-teal-500 dark:focus:border-teal-500 dark:shadow-sm-light"
-                                    placeholder="Descripcion" required>{{ old('description', $user->description) }}</textarea>
+                                    placeholder="Descripcion">{{ old('description', $user->description) }}</textarea>
                             </div>
 
                             <div>
@@ -98,6 +98,13 @@
                                 <input type="file" accept="image/*" name="photo"
                                     class="file:bg-gray-800 file:text-white file:py-3 file:px-4 file:hover:bg-gray-600 file:hover:cursor-pointer file:mr-4 file:rounded-l-lg file:border-none w-full bg-gray-700 rounded-lg text-white/80 mb-4 border focus:outline-none border-gray-600 hover:cursor-pointer placeholder-gray-400 text-gray-900">
                             </div>
+
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" name="is_public" class="sr-only peer" @if($user->is_public == 1 )checked @endif>
+                                <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-teal-300 dark:peer-focus:ring-teal-800 dark:bg-gray-500 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-teal-600"></div>
+                                <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-200">Cuenta publica</span>
+                              </label>
+
                             <button type="submit"
                                 class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Editar</button>
                         </form>
@@ -105,13 +112,46 @@
                 </div>
             </div>
         </div>
-        <!-- Main modal -->
+
+
+<!-- Main modal -->
+<div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+    <div class="relative w-full h-full max-w-2xl md:h-auto">
         <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                    Descripcion
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-6 space-y-6">
+                <p class="text-base leading-relaxed text-gray-500 dark:text-gray-300">
+                    @if(!empty($user->description))
+                    {{$user->description}}
+                    @else
+                    Sin descripción
+                    @endif
+                </p>
+            </div>
+            <!-- Modal footer -->
+            {{-- <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                <button data-modal-hide="defaultModal" type="button" class="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800">Cerrar</button>
+            </div> --}}
+        </div>
+    </div>
+</div>
+<!-- End modal -->
 
 
-        <div class="w-full bg-gray-800 w-full rounded py-4 px-4 inline-flex">
+        <div class="w-full grid grid-cols-2 bg-gray-800 w-full rounded py-4 px-4 inline-flex">
 
-            <div class="grid grid-cols-10 grid-rows-6 h-28 sm:grid-cols-10 sm:grid-rows-6 sm:h-28 md:h-36 w-1/2">
+            <div class="grid grid-cols-10 grid-rows-6 h-28 sm:grid-cols-10 sm:grid-rows-6 sm:h-28 md:h-36 col-span-1">
 
                 <div class="col-span-2 w-24 h-24 md:w-32 md:h-32 bg-gray-900 rounded-full overflow-hidden shadow-lg mb-4">
                     <img src="{{ $user->photo }}" loading="lazy" alt="{{ $user->username }} photo"
@@ -119,32 +159,59 @@
                 </div>
 
                 <div
-                    class="col-span-10 mt-16 sm:mt-0 sm:col-start-5 sm:col-span-5 sm:row-start-2 md:col-start-5 lg:col-start-4 md:col-span-5 row-start-2">
+                    class="col-span-10 mt-16 sm:mt-0 sm:col-start-5 sm:col-span-5 sm:row-start-2 md:col-start-5 lg:col-start-4 md:col-span-10 row-start-2">
                     <span class="text-gray-200 md:text-lg lg:text-xl">
-                        {{ $user->name }} {{ $user->lastname }}
+                        {{ $user->name }} {{ $user->lastname }} <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="block text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-sm px-3 py-1 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800" type="button">
+                            descripción
+                          </button>
+                          
                     </span>
 
                     <p
                         class="col-start-3 col-span-2 row-start-1 sm:col-start-5 sm:col-span-5 sm:row-start-2 md:col-start-4 md:row-start-4 text-gray-200 md:text-md lg:text-lg">
                         {{ $user->username }}
                     </p>
+                    <p class="text-gray-300">
+                        {{$user->followers}} Seguidores
+                    </p>
                 </div>
 
             </div>
-            @if (Auth::user()->id == $user->id)
-                <div class="grid grid-cols-6 grid-rows-2 w-1/2 h-28 md:h-36">
+            <div class="col-span-1 grid grid-cols-6">
 
-                    <div class="col-start-3 md:col-start-5 md:col-span-2">
+            @if (Auth::user()->id == $user->id)
+
+                    <div class="flex items-center col-span-2 col-start-5">
                         <button data-modal-target="authentication-modal" title="Editar perfil"
                             data-modal-toggle="authentication-modal"
-                            class="text-white bg-gray-900 hover:bg-gray-700 hover:shadow-xl px-4 py-2 md:px-5 md:py-2 rounded"
+                            class="text-white bg-gray-900 hover:bg-gray-700 hover:shadow-xl px-5 py-2 rounded"
                             type="button">
                             Modificar
                         </button>
                     </div>
 
-                </div>
             @endif
+
+            <div class="flex items-center col-span-2 col-start-5">
+                @if ($user->id != Auth::user()->id)
+                      
+                <form action="{{route('follow')}}" method="post">
+                  @csrf
+                  <input type="text" name="followed_id" class="hidden" value="{{$user->id}}">
+                  <button type="submit" class="bg-gray-700 text-white rounded text-sm px-3 py-2">
+                    
+                    @if($following == null)
+                    Seguir <i class="fa-solid fa-check"></i>
+                    @else
+                    Dejar de seguir &nbsp<i class="fa-solid fa-xmark"></i>
+                    @endif
+                  </button>
+                </form>
+  
+                @endif
+              </div>
+            </div>
+
 
         </div>
         <div class="mt-16 mb-16 w-full text-center">
