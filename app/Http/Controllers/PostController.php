@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StorePost;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Follow;
@@ -49,7 +50,8 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
-        return view('posts.show', compact('post'));
+        $comments = Comment::where('post_id',$post->id)->paginate(10);
+        return view('posts.show', compact('post','comments'));
     }
 
     public function update(Post $post, StorePost $request)
@@ -94,6 +96,8 @@ class PostController extends Controller
         }
     }
 
+    //Posts functions end
+
     public function search(Request $request){
         $search = $request->search;
         $users = User::query();
@@ -108,5 +112,18 @@ class PostController extends Controller
 
     public function get_search(){
         return view('search');
+    }
+
+    public function postComment(Request $request){
+        $request->validate([
+            'user_id' => 'int',
+            'post_id' => 'int'
+        ]);
+        $comment = Comment::create([
+            'comment' => $request->comment,
+            'user_id' => Auth::user()->id,
+            'post_id' => intval($request->post_id)
+        ]);
+        return redirect(url()->previous());
     }
 }

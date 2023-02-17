@@ -186,4 +186,25 @@
             </div>
         </div>
     </div>
+    <div class="container mx-auto px-4">
+
+        <form action="{{route('comment')}}" method="post" class="py-4 my-4 bg-gray-800 rounded-lg w-full px-4">
+            @csrf
+            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                <div class="flex justify-between items-center mx-0 p-0">
+                    Deja un comentario 
+                    <button type="submit" title="subir comentario" class="bg-teal-700 text-white px-3 py-2 mt-2 rounded-full hover:bg-teal-800 hover:cursor-pointer"><i class="fa-solid fa-paper-plane"></i></button>  
+                </div>
+            </label>
+            <input type="text" class="hidden" name="post_id" value="{{$post->id}}">
+            <textarea id="message" name="comment" rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escribe tu comentario aqui"></textarea> 
+        </form>
+        <h2 class="text-xl text-white text-center mb-4">Comentarios</h2>
+        @foreach ($comments as $comment)
+        <div class="w-3/4 mx-auto bg-gray-800 rounded-lg px-4 py-2">
+            <p class="text-white">{{$comment->comment}}</p>
+        </div>
+        @endforeach
+
+    </div>
 @endsection

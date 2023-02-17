@@ -139,17 +139,13 @@
                     @endif
                 </p>
             </div>
-            <!-- Modal footer -->
-            {{-- <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button data-modal-hide="defaultModal" type="button" class="text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800">Cerrar</button>
-            </div> --}}
         </div>
     </div>
 </div>
 <!-- End modal -->
 
 
-        <div class="w-full grid grid-cols-2 bg-gray-800 w-full rounded py-4 px-4 inline-flex">
+        <div class="w-full grid grid-cols-2 bg-gray-800 h-64 sm:h-auto rounded py-4 px-4 inline-flex">
 
             <div class="grid grid-cols-10 grid-rows-6 h-28 sm:grid-cols-10 sm:grid-rows-6 sm:h-28 md:h-36 col-span-1">
 
@@ -181,10 +177,10 @@
 
             @if (Auth::user()->id == $user->id)
 
-                    <div class="flex items-center col-span-2 col-start-5">
+                    <div class="flex items-center col-span-2 sm:col-start-5 col-start-3">
                         <button data-modal-target="authentication-modal" title="Editar perfil"
                             data-modal-toggle="authentication-modal"
-                            class="text-white bg-gray-900 hover:bg-gray-700 hover:shadow-xl px-5 py-2 rounded"
+                            class="text-white bg-gray-900 hover:bg-gray-700 hover:shadow-xl sm:px-5 sm:py-2 px-2 py-1 text-sm sm:text-lg rounded"
                             type="button">
                             Modificar
                         </button>

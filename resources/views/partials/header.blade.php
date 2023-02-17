@@ -23,48 +23,6 @@
     }
 </style>
 
-
-{{-- 
-<header class="mb-4 fixed top-0 left-0 right-0 w-full z-10">
-    <nav class=" bg-white  border-gray-200 px-4 lg:px-6 py-5 dark:bg-gray-800">
-        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-            <a href="{{route('posts.index')}}" class="flex items-center">
-                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white"><i class="fa-solid fa-user-lock text-2xl mr-5"></i> Personal Blog</span>
-            </a>
-            <div class="w-auto justify-between items-center w-full md:flex md:w-auto md:order-1">
-                <ul class="flex mt-4 font-medium flex-row space-x-8 md:mt-0 overflow-x-auto overflow-hidden noscroll">
-                    <li>
-                        <a href="{{route('posts.index')}}" class="{{request()->routeIs('posts.index') ? 'dark:text-white' : 'dark:text-gray-400'}} rounded bg-primary-700 bg-transparent text-primary-700 p-0 ">
-                            Inicio
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{route('contact.index')}}" class="{{request()->routeIs('contact.index') ? 'dark:text-white' : 'dark:text-gray-400'}} rounded bg-primary-700 bg-transparent text-primary-700 p-0">
-                            Contacto
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-gray-700 border-b border-gray-100 hover:bg-gray-50 hover:bg-transparent border-0 hover:text-primary-700 p-0 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:hover:bg-transparent dark:border-gray-700">Features</a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-gray-700 border-b border-gray-100 hover:bg-gray-50 hover:bg-transparent border-0 hover:text-primary-700 p-0 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:hover:bg-transparent dark:border-gray-700">Team</a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-gray-700 border-b border-gray-100 hover:bg-gray-50 hover:bg-transparent border-0 hover:text-primary-700 p-0 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:hover:bg-transparent dark:border-gray-700">Contact</a>
-                    </li>
-                    <li>
-                        <form action="{{route('auth.logout')}}">
-                            <button type="submit" class="rounded-full px-1 bg-red-600 hover:bg-red-500 text-white">
-                                <i class="fa-solid fa-power-off"></i>
-                            </button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header> --}}
-
 <header class="mb-4 fixed top-0 left-0 right-0 w-full z-10">
     <nav class=" bg-white  border-gray-200 px-4 lg:px-6 py-5 dark:bg-gray-800"">
         <div class="container flex flex-wrap items-center justify-between mx-auto">
