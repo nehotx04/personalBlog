@@ -12,8 +12,29 @@
 </head>
 
 <body class="bg-gray-900 max-h-screen">
-    @if (!request()->routeIs('auth.*')) 
-    @include('partials/header')
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #363636;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #555555;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6e6e6e;
+        }   
+    </style>
+    @if (!request()->routeIs('auth.*'))
+        @include('partials/header')
     @endif
     @yield('body')
 

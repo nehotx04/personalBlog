@@ -168,7 +168,8 @@
                         {{ $user->username }}
                     </p>
                     <p class="text-gray-300">
-                        {{$user->followers}} Seguidores
+                        {{$user->followers}} Seguidores &nbsp | &nbsp
+                        {{$user->following}} Seguidos
                     </p>
                 </div>
 
@@ -195,11 +196,12 @@
                   @csrf
                   <input type="text" name="followed_id" class="hidden" value="{{$user->id}}">
                   <button type="submit" class="bg-gray-700 text-white rounded text-sm px-3 py-2">
-                    
-                    @if($following == null)
-                    Seguir <i class="fa-solid fa-check"></i>
-                    @else
-                    Dejar de seguir &nbsp<i class="fa-solid fa-xmark"></i>
+                    @if(Auth::user()->id != $user->id)
+                        @if($following == null)
+                            Seguir &nbsp<i class="fa-solid fa-check"></i>
+                        @else
+                            Dejar de seguir &nbsp<i class="fa-solid fa-xmark"></i>
+                        @endif
                     @endif
                   </button>
                 </form>

@@ -45,4 +45,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::put('profile/{user}', [UserController::class, 'edit_profile'])->name('profile.edit');
     Route::post('follow', [UserController::class, 'follow'])->name('follow');
     Route::post('comment', [PostController::class, 'postComment'])->name('comment');
+    Route::post('like', [PostController::class, 'like'])->name('like');
 });

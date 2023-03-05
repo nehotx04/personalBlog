@@ -56,6 +56,12 @@ class User extends Authenticatable
         $this->attributes['username'] = '@' . $username;
     }
 
+    public function setNameAndLastnameUpper($name,$lastname){
+        $name = Str::title($name);
+        $lastname = Str::title($lastname);
+
+    }
+
     public function getRouteKeyName()
     {
         return 'username';

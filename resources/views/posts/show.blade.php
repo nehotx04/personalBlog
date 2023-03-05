@@ -1,6 +1,6 @@
 @extends('template')
 @section('title')
-    {{ $post->name }}
+    {{ $post->title }}
 @endsection
 
 @section('body')
@@ -105,22 +105,27 @@
                 </button>
                 <div class="px-6 py-6 lg:px-8">
                     <h3 class="mb-4 text-xl text-center font-medium text-gray-900 dark:text-white">Editar publicacion</h3>
-                    <form class="space-y-6" action="{{route('posts.update',$post)}}" method="post" enctype="multipart/form-data">
+                    <form class="space-y-6" action="{{ route('posts.update', $post) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('put')
                         <div>
-                            <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">*Titulo</label>
-                            <input type="text" value="{{ old('body',$post->title) }}" name="title"
+                            <label for="title"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">*Titulo</label>
+                            <input type="text" value="{{ old('title', $post->title) }}" name="title"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                 placeholder="Titulo" required>
                         </div>
                         <div>
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">*Contenido</label>
-                                <textarea name="body" rows="5"
-                                class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-teal-500 focus:border-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-teal-500 dark:focus:border-teal-500 dark:shadow-sm-light" placeholder="Contenido" required>{{ old('body',$post->body) }}</textarea>
+                            <label for="password"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">*Contenido</label>
+                            <textarea name="body" rows="5"
+                                class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-teal-500 focus:border-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-teal-500 dark:focus:border-teal-500 dark:shadow-sm-light"
+                                placeholder="Contenido" required>{{ old('body', $post->body) }}</textarea>
                         </div>
                         <div>
-                          <input type="file" accept="image/*" name="image" class="file:bg-teal-600 file:text-white file:py-3 file:px-4 file:hover:bg-teal-700 file:hover:cursor-pointer file:mr-4 file:rounded-l-lg file:border-none w-full bg-gray-700 rounded-lg text-white/80 mb-4 border focus:outline-none border-gray-600 hover:cursor-pointer placeholder-gray-400 text-gray-900">  
+                            <input type="file" accept="image/*" name="image"
+                                class="file:bg-teal-600 file:text-white file:py-3 file:px-4 file:hover:bg-teal-700 file:hover:cursor-pointer file:mr-4 file:rounded-l-lg file:border-none w-full bg-gray-700 rounded-lg text-white/80 mb-4 border focus:outline-none border-gray-600 hover:cursor-pointer placeholder-gray-400 text-gray-900">
                         </div>
                         <button type="submit"
                             class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Editar</button>
@@ -139,23 +144,24 @@
         <div class="max-w-screen-xl px-4 md:px-8 mx-auto">
 
             @if (Auth::user()->id == $post->user_id)
-            <div class="flex flex-row justify-between md:grid md:grid-cols-2 md:w-1/2">
-              
-              <div class="col-span-9 md:col-span-1">
-                  <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                  class="text-white bg-red-700 hover:bg-red-600 px-6 py-3 md:px-5 md:py-2 rounded-lg" type="button">
-                    Eliminar
-                  </button>
-              </div>
+                <div class="flex flex-row justify-between md:grid md:grid-cols-2 md:w-1/2">
 
-              <div class="col-span-1 md:col-span-1">
-                <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
-                class="text-white bg-green-700 hover:bg-green-600 px-6 py-3 md:px-5 md:py-2 rounded-lg"
-                type="button">
-                  Editar
-                </button>
-              </div>
-            </div>
+                    <div class="col-span-9 md:col-span-1">
+                        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                            class="text-white bg-red-700 hover:bg-red-600 px-6 py-3 md:px-5 md:py-2 rounded-lg"
+                            type="button">
+                            Eliminar
+                        </button>
+                    </div>
+
+                    <div class="col-span-1 md:col-span-1">
+                        <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal"
+                            class="text-white bg-green-700 hover:bg-green-600 px-6 py-3 md:px-5 md:py-2 rounded-lg"
+                            type="button">
+                            Editar
+                        </button>
+                    </div>
+                </div>
             @endif
 
 
@@ -164,7 +170,8 @@
                     <div class="h-auto bg-transparent overflow-hidden rounded-lg">
 
                         @if ($post->image == null)
-                            <div class="w-full py-24 sm:py-48 md:py-72 object-cover text-center object-center bg-teal-500">
+                            <div
+                                class="w-full py-24 sm:py-48 md:py-72 object-cover text-center object-center bg-teal-500 inline-flex">
                                 <span class="text-white text-5xl">
                                     {{ Str::limit($post->title, 10) }}
                                 </span>
@@ -177,8 +184,25 @@
                 </div>
 
                 <div class="md:pt-8">
-                    <h1 class="text-gray-400 text-2xl sm:text-3xl font-bold text-center md:text-left mb-4 md:mb-6">
-                        {{ $post->title }}</h1>
+                    <div class="flex justify-between">
+
+                        <h1 class="text-gray-400 text-2xl sm:text-3xl font-bold text-center md:text-left mb-4 md:mb-6">
+                            {{ $post->title }}</h1>
+                            
+                            <form action="{{route('like')}}" method="post">
+                                @csrf
+                                <input type="int" name="post_id" value="{{$post->id}}" class="hidden">
+                                @if (empty($liked))
+                                <button class="hover:text-white text-gray-900 text-lg rounded-full bg-teal-700 hover:bg-teal-900 px-2 py-1 h-10 w-10">
+                                    <i class="fa-solid fa-thumbs-up"></i>
+                                </button>
+                                @else
+                                <button class="hover:text-gray-900 text-white text-lg rounded-full bg-teal-700 hover:bg-teal-900 px-2 py-1 h-10 w-10">
+                                    <i class="fa-solid fa-thumbs-up"></i>
+                                </button>
+                                @endif
+                            </form>
+                    </div>
                     <p class="text-gray-500 sm:text-lg mb-6 md:mb-8">
                         {{ $post->body }}
                     </p>
@@ -188,22 +212,37 @@
     </div>
     <div class="container mx-auto px-4">
 
-        <form action="{{route('comment')}}" method="post" class="py-4 my-4 bg-gray-800 rounded-lg w-full px-4">
+        <form action="{{ route('comment') }}" method="post" class="py-4 my-4 bg-gray-800 rounded-lg w-full px-4">
             @csrf
             <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                <div class="flex justify-between items-center mx-0 p-0">
-                    Deja un comentario 
-                    <button type="submit" title="subir comentario" class="bg-teal-700 text-white px-3 py-2 mt-2 rounded-full hover:bg-teal-800 hover:cursor-pointer"><i class="fa-solid fa-paper-plane"></i></button>  
-                </div>
+                Deja un comentario
             </label>
-            <input type="text" class="hidden" name="post_id" value="{{$post->id}}">
-            <textarea id="message" name="comment" rows="2" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Escribe tu comentario aqui"></textarea> 
+            <input type="text" class="hidden" name="post_id" value="{{ $post->id }}">
+            <div class="flex justify-between items-start mx-0 p-0 text-gray-400">
+                <textarea id="message" name="comment" rows="1"
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Escribe tu comentario aqui"></textarea>
+                <button type="submit" title="subir comentario"
+                    class="bg-teal-700 ml-2 text-white px-3 py-2 rounded-full hover:bg-teal-800 hover:cursor-pointer"><i
+                        class="fa-solid fa-paper-plane"></i></button>
+            </div>
         </form>
-        <h2 class="text-xl text-white text-center mb-4">Comentarios</h2>
+        <h2 class="text-xl text-gray-400 text-center mb-4">Comentarios</h2>
+        @if ($post->comments != 0)
+            <div class="w-full text-center mb-4">
+                <span class="text-sm text-gray-500">{{ $post->comments }} Comentarios </span>
+            </div>
+        @endif
         @foreach ($comments as $comment)
-        <div class="w-3/4 mx-auto bg-gray-800 rounded-lg px-4 py-2">
-            <p class="text-white">{{$comment->comment}}</p>
-        </div>
+            <div class="w-3/4 mx-auto mb-4 bg-gray-800 rounded-lg p-4">
+                <div class="inline-flex">
+                    <div>
+                        <p class="text-gray-400 text-base" style="user-select: none;"> Privloger </p>
+                        <p class="text-white text-base">{{ $comment->comment }}</p>
+                    </div>
+
+                </div>
+            </div>
         @endforeach
 
     </div>

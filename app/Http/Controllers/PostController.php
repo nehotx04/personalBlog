@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Follow;
+use App\Models\Like;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,7 +52,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         $comments = Comment::where('post_id',$post->id)->paginate(10);
-        return view('posts.show', compact('post','comments'));
+        $liked = Like::where('post_id',$post->id)->where('user_id',Auth::user()->id)->first();
+        return view('posts.show', compact('post','comments','liked'));
     }
 
     public function update(Post $post, StorePost $request)
@@ -59,6 +61,9 @@ class PostController extends Controller
         if(Auth::user()->id == $post->user_id){
 
             if(!empty($request->image)){
+                if(file_exists(public_path($post->image))){
+                    unlink(public_path($post->image));
+                }
 
                 $img = $request->file('image')->store('public/imgs/posts');
                 $url = Storage::url($img);
@@ -70,7 +75,11 @@ class PostController extends Controller
                 $post->save();
 
             }else{
-
+                if(Storage::exists($post->image)){
+                    return dump(Storage::exists($post->image));
+                    Storage::delete($post->image);
+                }
+                
                 $post->title = $request->title;
                 $post->body = $request->body;
                 $post->user_id = Auth::user()->id;
@@ -124,6 +133,28 @@ class PostController extends Controller
             'user_id' => Auth::user()->id,
             'post_id' => intval($request->post_id)
         ]);
+        $post = Post::where('id',intval($request->post_id))->first();
+        $post->comments += 1;
+        $post->save();
+        return redirect(url()->previous());
+    }
+
+    public function like(Request $request){
+        $post = Post::where('id',$request->post_id)->first();
+        $user = Auth::user()->id;
+        $liked = Like::where('post_id',$post->id)->where('user_id',$user)->first();
+        if(empty($liked)){
+            $like = Like::create([
+                'user_id' => $user,
+                'post_id' => $post->id
+            ]);
+            $post->likes +=1;
+            $post->save();
+        }else{
+            $liked->delete();
+            $post->likes -=1;
+            $post->save();
+        }
         return redirect(url()->previous());
     }
 }

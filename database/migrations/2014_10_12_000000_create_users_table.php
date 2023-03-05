@@ -17,12 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('lastname');
-            $table->string('username');
+            $table->string('username')->unique();
             $table->string('description')->nullable();
             $table->string('photo')->default('/storage/imgs/profile-photos/default-user.png');
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('is_public')->default(0);
+            $table->integer('following')->default(0);
             $table->integer('followers')->default(0);
             $table->timestamps();
         });

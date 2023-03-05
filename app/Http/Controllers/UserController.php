@@ -36,10 +36,17 @@ class UserController extends Controller
 
     public function profile($user){
         $user = User::where('username',$user)->first();
-        $following = Follow::where('follower_id',Auth::user()->id)->where('followed_id',$user->id)->first();
+        if(Auth::user()->username != $user->username){
+            $following = Follow::where('follower_id',Auth::user()->id)->where('followed_id',$user->id)->first();
+        }
         $posts = Post::where('user_id',$user->id)->paginate(24);
         // return dump($posts);
-        return view('users.show',compact('user','posts','following'));
+        if(Auth::user()->username != $user->username){
+            return view('users.show',compact('user','posts','following'));
+        }else{
+            return view('users.show',compact('user','posts'));
+
+        }
     }
 
     public function edit_profile(Request $request,User $user){
@@ -52,7 +59,9 @@ class UserController extends Controller
             }
 
             if(!empty($request->photo)){
-
+                if(file_exists(public_path($user->photo))){
+                    unlink(public_path($user->photo));
+                }
                 $img = $request->file('photo')->store('public/imgs/profile-photos');
                 $url = Storage::url($img);
                 
@@ -64,7 +73,7 @@ class UserController extends Controller
                 $user->save();
 
             }else{
-
+                
                 $user->name = $request->name;
                 $user->lastname = $request->lastname;
                 $user->username = $request->username;
@@ -82,24 +91,28 @@ class UserController extends Controller
     }
 
     public function follow(Request $request){
-        $follower = Auth::user()->id;
         $followed = intval($request->followed_id);
         $followed = User::where('id',$followed)->first();
-        $following = Follow::where('follower_id',$follower)->where('followed_id',$followed->id)->first();
+        $follower = User::where('id',Auth::user()->id)->first();
+        $following = Follow::where('follower_id',$follower->id)->where('followed_id',$followed->id)->first();
         if($following == null){
             // return dump($follower,intval($followed));
             $following = Follow::create([
-                'follower_id' => $follower,
+                'follower_id' => $follower->id,
                 'followed_id' => $followed->id
             ]);
+            $follower->following +=1;
             $followed->followers += 1;
+            $follower->save();
             $followed->save();
             // return redirect(route('profile',$user));
          return redirect(url()->previous());
 
         }else{
-            // return dump($following);
+            
+            $follower->following -=1;
             $followed->followers -= 1;
+            $follower->save();
             $followed->save();
             $following->delete();
             // return redirect(route('profile',$user));
